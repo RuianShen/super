@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.SystemPermissionDao">
+  <resultMap id="BaseResultMap" type="com.entity.SystemPermissionEntity">
+    <constructor>
+      <idArg column="permission_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="permission_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="permission_name" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="permission_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="permission_mark" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    permission_id, permission_code, permission_name, permission_type, permission_mark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from system_permission
+    where permission_id = #{permissionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from system_permission
+    where permission_id = #{permissionId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.SystemPermissionEntity">
+    insert into system_permission (permission_id, permission_code, permission_name, 
+      permission_type, permission_mark)
+    values (#{permissionId,jdbcType=INTEGER}, #{permissionCode,jdbcType=VARCHAR}, #{permissionName,jdbcType=VARCHAR}, 
+      #{permissionType,jdbcType=VARCHAR}, #{permissionMark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.SystemPermissionEntity">
+    insert into system_permission
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="permissionId != null">
+        permission_id,
+      </if>
+      <if test="permissionCode != null">
+        permission_code,
+      </if>
+      <if test="permissionName != null">
+        permission_name,
+      </if>
+      <if test="permissionType != null">
+        permission_type,
+      </if>
+      <if test="permissionMark != null">
+        permission_mark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="permissionId != null">
+        #{permissionId,jdbcType=INTEGER},
+      </if>
+      <if test="permissionCode != null">
+        #{permissionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionName != null">
+        #{permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionType != null">
+        #{permissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionMark != null">
+        #{permissionMark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.SystemPermissionEntity">
+    update system_permission
+    <set>
+      <if test="permissionCode != null">
+        permission_code = #{permissionCode,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionName != null">
+        permission_name = #{permissionName,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionType != null">
+        permission_type = #{permissionType,jdbcType=VARCHAR},
+      </if>
+      <if test="permissionMark != null">
+        permission_mark = #{permissionMark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where permission_id = #{permissionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.SystemPermissionEntity">
+    update system_permission
+    set permission_code = #{permissionCode,jdbcType=VARCHAR},
+      permission_name = #{permissionName,jdbcType=VARCHAR},
+      permission_type = #{permissionType,jdbcType=VARCHAR},
+      permission_mark = #{permissionMark,jdbcType=VARCHAR}
+    where permission_id = #{permissionId,jdbcType=INTEGER}
+  </update>
+</mapper>

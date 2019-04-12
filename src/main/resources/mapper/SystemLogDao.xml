@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.SystemLogDao">
+  <resultMap id="BaseResultMap" type="com.entity.SystemLogEntity">
+    <constructor>
+      <idArg column="log_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="log_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="logdata1" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="logdata2" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="logdata3" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="createtime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="mark" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  
+  <resultMap id="BaseResultMapParam" type="com.entity.param.SystemLogParam">
+    <constructor>
+      <idArg column="log_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="log_code" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="logdata1" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="logdata2" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="logdata3" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="user_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="createtime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="mark" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    log_id, log_code, logdata1, logdata2, logdata3, user_id, createtime, mark
+  </sql>
+  <select id="selectHotLookByParam" parameterType="com.entity.param.SystemLogParam" resultType="com.entity.param.SystemLogParam">
+  select 
+  <include refid="Base_Column_List"/>
+  from system_log
+  where log_code=5003
+  ORDER BY logdata1 DESC
+  <include refid="common.currency_tail"/>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from system_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from system_log
+    where log_id = #{logId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.entity.SystemLogEntity">
+    insert into system_log (log_id, log_code, logdata1, 
+      logdata2, logdata3, user_id, 
+      createtime, mark)
+    values (#{logId,jdbcType=INTEGER}, #{logCode,jdbcType=VARCHAR}, #{logdata1,jdbcType=INTEGER}, 
+      #{logdata2,jdbcType=VARCHAR}, #{logdata3,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{mark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.SystemLogEntity" useGeneratedKeys="true" keyProperty="logId">
+    insert into system_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="logId != null">
+        log_id,
+      </if>
+      <if test="logCode != null">
+        log_code,
+      </if>
+      <if test="logdata1 != null">
+        logdata1,
+      </if>
+      <if test="logdata2 != null">
+        logdata2,
+      </if>
+      <if test="logdata3 != null">
+        logdata3,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="mark != null">
+        mark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="logId != null">
+        #{logId,jdbcType=INTEGER},
+      </if>
+      <if test="logCode != null">
+        #{logCode,jdbcType=VARCHAR},
+      </if>
+      <if test="logdata1 != null">
+        #{logdata1,jdbcType=INTEGER},
+      </if>
+      <if test="logdata2 != null">
+        #{logdata2,jdbcType=VARCHAR},
+      </if>
+      <if test="logdata3 != null">
+        #{logdata3,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mark != null">
+        #{mark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.entity.SystemLogEntity">
+    update system_log
+    <set>
+      <if test="logCode != null">
+        log_code = #{logCode,jdbcType=VARCHAR},
+      </if>
+      <if test="logdata1 != null">
+        logdata1 = #{logdata1,jdbcType=INTEGER},
+      </if>
+      <if test="logdata2 != null">
+        logdata2 = #{logdata2,jdbcType=VARCHAR},
+      </if>
+      <if test="logdata3 != null">
+        logdata3 = #{logdata3,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mark != null">
+        mark = #{mark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.entity.SystemLogEntity">
+    update system_log
+    set log_code = #{logCode,jdbcType=VARCHAR},
+      logdata1 = #{logdata1,jdbcType=INTEGER},
+      logdata2 = #{logdata2,jdbcType=VARCHAR},
+      logdata3 = #{logdata3,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=INTEGER},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      mark = #{mark,jdbcType=VARCHAR}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectBySystemLogParam" resultType="com.entity.param.SystemLogParam" parameterType="com.entity.param.SystemLogParam">
+  	select 
+    log_id as logId, log_code as logCode, logdata1, logdata2, logdata3, user_id as userId, createtime, mark
+    from system_log
+    <where>
+    	<if test="logCode !=null and logCode!='' ">
+    		AND log_code=#{logCode}
+    	</if>
+    	<if test="strDate!=null">
+    		AND createtime<![CDATA[  >= ]]> #{strDate}
+    	</if>
+    	<if test="endDate!=null">
+    		AND createtime<![CDATA[  <= ]]>#{endDate}
+    	</if>
+    </where>
+    ORDER BY createtime DESC 
+    <include refid="common.currency_tail"/>
+  </select>
+  
+  <select id="countBySystemLogParam" parameterType="com.entity.param.SystemLogParam" resultType="int">
+	select count(1)
+	from system_log
+	<where>
+		<if test="logCode !=null and logCode!='' ">
+			AND log_code=#{logCode}
+		</if>
+		<if test="strDate!=null">
+    		AND createtime<![CDATA[  >= ]]> #{strDate}
+    	</if>
+    	<if test="endDate!=null">
+    		AND createtime<![CDATA[  <= ]]>#{endDate}
+    	</if>
+	</where>
+  </select>
+  
+  <select id="selectSystemLogAll" resultType="com.entity.param.SystemLogParam" parameterType="com.entity.param.SystemLogParam" >
+  	select 
+    log_id as logId, log_code as logCode, logdata1, logdata2, logdata3, user_id as userId, createtime, mark
+    from system_log
+    <where>
+    	<if test="logCode !=null and logCode!='' ">
+    		AND log_code=#{logCode}
+    	</if>
+    	<if test="strDate!=null">
+    		AND createtime<![CDATA[  >= ]]> #{strDate}
+    	</if>
+    	<if test="endDate!=null">
+    		AND createtime<![CDATA[  <= ]]>#{endDate}
+    	</if>
+    </where>
+    ORDER BY createtime DESC 
+  </select>
+  
+  <select id="selectByParamPopular" resultType="com.entity.param.SystemLogParam" parameterType="com.entity.param.SystemLogParam">
+  	select 
+    log_id as logId, log_code as logCode, logdata1, logdata2, logdata3, user_id as userId, createtime, mark
+    from system_log
+    <where>
+    	<if test="logdata2 !=null and logdata2!='' ">
+    		AND logdata2 like '%${logdata2}%'
+    	</if>
+    	AND log_code=5001
+    </where>
+    <if test="order==null or order==''">
+    	ORDER BY LOGDATA1 DESC 
+    </if>
+    <if test="order!=null and order!=''">
+    	ORDER BY LOGDATA1 ${order} 
+    </if>
+    <include refid="common.currency_tail"/>
+  </select>
+  
+  <select id="countBySystemPopular" resultType="int" parameterType="com.entity.param.SystemLogParam">
+  	select 
+    count(1)
+    from system_log
+    <where>
+    	<if test="logdata2 !=null and logdata2!='' ">
+    		AND logdata2 like '%${logdata2}%'
+    	</if>
+    	AND log_code=5001
+    </where>
+  </select>
+</mapper>
